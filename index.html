@@ -4,49 +4,24 @@
   <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/Tween.min.js"></script>
   <script>
     AFRAME.registerComponent('resize-scene-on-click', {
       init: function () {
         this.el.addEventListener('click', () => {
+          // Réduit la taille de la scène
           const sceneEl = this.el.sceneEl;
-  
-          // Création d'une animation pour réduire progressivement la scène
-          const initialScale = sceneEl.object3D.scale.clone();
-          const targetScale = { x: 0.5, y: 0.5, z: 0.5 }; // Taille réduite
-  
-          new TWEEN.Tween(initialScale)
-            .to(targetScale, 1000) // Durée de l'animation : 1 seconde
-            .onUpdate(() => {
-              sceneEl.object3D.scale.set(initialScale.x, initialScale.y, initialScale.z);
-            })
-            .start();
-  
-          // Animation pour faire disparaître le gâteau (en réduisant son échelle)
-          const cakeEl = this.el;
-          const initialCakeScale = cakeEl.object3D.scale.clone();
-          const targetCakeScale = { x: 0, y: 0, z: 0 };
-  
-          new TWEEN.Tween(initialCakeScale)
-            .to(targetCakeScale, 1000)
-            .onUpdate(() => {
-              cakeEl.object3D.scale.set(initialCakeScale.x, initialCakeScale.y, initialCakeScale.z);
-            })
-            .onComplete(() => {
-              // Supprime le gâteau une fois l'animation terminée
-              cakeEl.parentNode.removeChild(cakeEl);
-            })
-            .start();
+          sceneEl.object3D.scale.set(0.5, 0.5, 0.5); // Rétrécit la scène à 50% de sa taille
+
+          // Supprime l'élément (le gâteau)
+          this.el.parentNode.removeChild(this.el);
+
+          // Change la position de la caméra (rig)
+          const rigEl = document.querySelector('#rig');
+          rigEl.setAttribute('position', '-6.2 30 -25.2'); // Nouveaux X, Y, Z pour la caméra
+          cameraRig.object3D.rotation.set(0, Math.PI / 2, 0);
         });
       }
     });
-  
-    // Appel de la fonction d'animation pour TWEEN.js
-    function animate() {
-      requestAnimationFrame(animate);
-      TWEEN.update();
-    }
-    animate();
   </script>
 </head>
 
@@ -68,6 +43,7 @@
       <a-asset-item id="plate" src="assets/Plate.glb"></a-asset-item>
       <a-asset-item id="tulipe" src="assets/tulipe.glb"></a-asset-item>
       <a-asset-item id="fleur-jaune" src="assets/fleur-jaune.glb"></a-asset-item>
+      <a-asset-item id="porte" src="assets/porte.glb"></a-asset-item>
       <img id="nappe" src="assets/nappe.jpg">
     </a-assets>
 
@@ -96,6 +72,15 @@
     <a-entity gltf-model="#the" rotation="0 -55 0" position="-2.55 0 -34.4" scale="0.45 0.45 0.45"></a-entity>
 
 
+
+    <a-entity gltf-model="#porte" rotation="0 -90 0" position="0 15 -84.4" scale="10 10 10"></a-entity>
+
+    <a-entity gltf-model="#porte" rotation="0 -90 0" position="0 3.6 39.6" scale="2 2 2"></a-entity>
+
+
+
+
+
     <a-entity gltf-model="#teapot2" rotation="-73.5 -42.9 8.3" position="3.1 6.8 5" scale="1.5 1.5 1.5"></a-entity>
 
     <a-entity gltf-model="#teapot2" rotation="-64.3 -160 0" position="-7.45 4.3 -16.35" scale="1.5 1.5 1.5"></a-entity>
@@ -118,13 +103,12 @@
 
 
     <a-entity 
-      gltf-model="#cake" 
-      position="-6.2 0 -38.2" 
-      scale="8 8 8" 
-      resize-scene-on-click 
-      class="clickable">
-    </a-entity>
-
+  gltf-model="#cake" 
+  position="-6.2 0 -38.2" 
+  scale="8 8 8" 
+  resize-scene-on-click 
+  class="clickable">
+</a-entity>
 
 
     <a-entity gltf-model="#tasse" rotation="0 0 0" position="-6.2 0 -30" scale="1.5 1.5 1.5"></a-entity>
@@ -192,13 +176,13 @@
 
 
 
-    <a-entity gltf-model="#tulipe" rotation="0 0 0" position="7.9 2.6 -26.7" scale="10 10 10"></a-entity>
-    <a-entity gltf-model="#tulipe" rotation="0 0 0" position="7.9 2.6 -26.7" scale="10 10 10"></a-entity>
-    <a-entity gltf-model="#tulipe" rotation="0 0 0" position="7.9 2.6 -26.7" scale="10 10 10"></a-entity>
-    <a-entity gltf-model="#tulipe" rotation="0 0 0" position="7.9 2.6 -26.7" scale="10 10 10"></a-entity>
-    <a-entity gltf-model="#tulipe" rotation="0 0 0" position="7.9 2.6 -26.7" scale="10 10 10"></a-entity>
-    <a-entity gltf-model="#tulipe" rotation="0 0 0" position="7.9 2.6 -26.7" scale="10 10 10"></a-entity>
-    <a-entity gltf-model="#tulipe" rotation="0 0 0" position="7.9 2.6 -26.7" scale="10 10 10"></a-entity>
+    <a-entity gltf-model="#tulipe" rotation="0 0 0" position="-14.7 9.4 -3.28" scale="15 15 15"></a-entity>
+    <a-entity gltf-model="#tulipe" rotation="0 0 0" position="-14.9 9.4 6" scale="15 15 15"></a-entity>
+    <a-entity gltf-model="#tulipe" rotation="0 0 0" position="-12.4 9.4 -4" scale="15 15 15"></a-entity>
+    <a-entity gltf-model="#tulipe" rotation="0 0 0" position="14.33 9.4 3.9" scale="15 15 15"></a-entity>
+    <a-entity gltf-model="#tulipe" rotation="0 0 0" position="14 9.4 12.9" scale="15 15 15"></a-entity>
+    <a-entity gltf-model="#tulipe" rotation="0 0 0" position="-12.8 9.4 14" scale="15 15 15"></a-entity>
+    <a-entity gltf-model="#tulipe" rotation="0 0 0" position="13.5 9.4 23.5" scale="15 15 15"></a-entity>
 
 
     <a-entity gltf-model="#fleur-jaune" rotation="0 -22 0" position="-11.7 0 -44.4" scale="3 3 3"></a-entity>
@@ -212,11 +196,14 @@
 
 
 
-    <a-plane position="0 0 -2" rotation="-90 0 0" width="20" height="80" color="#D16B69" material=" roughness: 0.8; src: #nappe">
+    <a-plane position="0 0 -2" rotation="-90 0 0" width="20" height="80" color="#D16B69" material=" roughness: 0.8;">
+    </a-plane>
+
+    <a-plane position="0 -0.01 -2" rotation="-90 0 0" width="50" height="100" color="#2F5139" material=" roughness: 0.8; src: #nappe"></a-plane>
     </a-plane>
 
     <a-sky color="#2b2b2b"></a-sky>
-    <a-entity id="rig" movement-controls position="0 1.7 40">
+    <a-entity id="rig" movement-controls position="0 1.7 39">
       <a-entity camera position="0 1.6 0" look-controls="pointerLockEnabled: true" cursor="rayOrigin: mouse">
       </a-entity>
       <a-entity oculus-touch-controls="hand: left" laser-controls="hand: left"
