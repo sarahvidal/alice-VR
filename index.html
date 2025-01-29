@@ -70,29 +70,9 @@
       <img id="grass" src="assets/grass.jpg">
     </a-assets>
 
-    <a-entity id="background-music"
-    sound="src: url(assets/background-music.mp3); autoplay: false; loop: true; volume: 0.5">
+    <a-entity 
+    sound="src: url(assets/background-music.mp3); autoplay: true; loop: true; volume: 10">
   </a-entity>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      let music = document.querySelector("#background-music");
-
-      // Déclencher la musique après la première interaction utilisateur
-      function startMusic() {
-        if (!music.components.sound.isPlaying) {
-          music.components.sound.playSound();
-        }
-        // Supprimer l'écouteur après le premier clic
-        document.removeEventListener("click", startMusic);
-        document.removeEventListener("keydown", startMusic);
-      }
-
-      // Attendre un clic ou une touche clavier pour démarrer la musique
-      document.addEventListener("click", startMusic);
-      document.addEventListener("keydown", startMusic);
-    });
-  </script>
 
     <a-entity id="message" 
           position="0 10 25"
