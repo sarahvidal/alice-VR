@@ -74,6 +74,12 @@
     sound="src: url(assets/background-music.mp3); autoplay: true; loop: true; volume: 10">
   </a-entity>
 
+  <script>
+    setTimeout(() => {
+      document.querySelector("#background-music").components.sound.playSound();
+    }, 5000); // Démarre après 5 secondes
+  </script>
+
     <a-entity id="message" 
           position="0 10 25"
           text="value: Trouver le gateau !; align: center; width: 15; color: white;">
