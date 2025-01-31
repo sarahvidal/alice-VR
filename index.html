@@ -80,11 +80,19 @@
     }, 5000); // Démarre après 5 secondes
   </script>
 
-    <a-entity id="message" 
-          position="0 10 25"
-          text="value: Trouver le gateau !; align: center; width: 15; color: white;">
+<a-entity id="message-background" 
+  position="0 10 24.9" 
+  geometry="primitive: plane; height: 5; width: 20"  
+  material="color: white;"> 
 </a-entity>
 
+<a-entity id="message" 
+  position="0 10 25"
+  text="value: Trouver le gateau !; 
+        align: center; 
+        width: 40; 
+        color: black;">
+</a-entity>
     <a-light type="ambient" color="#ffffff" intensity="0.8"></a-light>
 
     <a-light type="spot" position="0 12 29.6" rotation="-90 0 0" angle="80" intensity="1.5" distance="60" decay="3.1"
@@ -282,11 +290,17 @@
   <script>
     // Supprimer le message après 5 secondes
     setTimeout(() => {
-      let message = document.querySelector("#message");
-      if (message) {
-        message.parentNode.removeChild(message);
-      }
-    }, 5000);
+    let message = document.querySelector("#message");
+    let background = document.querySelector("#message-background");
+    
+    if (message) {
+      message.parentNode.removeChild(message);
+    }
+    
+    if (background) {
+      background.parentNode.removeChild(background);
+    }
+  }, 5000);
   </script>
 </body>
 
